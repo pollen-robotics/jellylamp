@@ -18,7 +18,7 @@ def auto_open_ios(ids_groups):
         port = find_port_for_ids(available_ports, ids)
         print('Found port {} for {}.'.format(port, ids))
 
-        io = Dxl320IO(port=port)
+        io = Dxl320IO(port=port, use_sync_read=True)
         ios[tuple(ids)] = io
 
         available_ports.remove(port)
