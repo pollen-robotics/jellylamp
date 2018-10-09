@@ -1,0 +1,31 @@
+language: python
+
+python:
+    - "2.7"
+    - "3.4"
+    - "3.5"
+    - "3.6"
+
+before_install:
+  - pip install --upgrade virtualenv
+  - virtualenv --python=python venv
+  - source venv/bin/activate
+  - python --version
+  - pip --version
+  - pip install nose python-coveralls
+  - pip install flake8
+
+install:
+  - pip install -e ./
+
+script:
+  - pip install -e ./[tests]
+  - nosetests --with-coverage --cover-erase --cover-package=jellylamp -v -w tests/
+
+after_success:
+    - coveralls
+    - flake8 --statistics --count --config=setup.cfg brunel_hand
+    - pip uninstall -y jellylamp
+
+after_failure:
+    - pip uninstall -y jellylamp
