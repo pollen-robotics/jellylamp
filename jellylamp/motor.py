@@ -15,7 +15,7 @@ class Motor(object):
     @goal_position.setter
     def goal_position(self, new_pos):
         self._goal_pos = new_pos
-        self.delegate._reg['pos'][self.id] = new_pos
+        self.delegate.update_reg('pos', self.id, new_pos)
 
     @property
     def color(self):
@@ -27,4 +27,4 @@ class Motor(object):
             raise ValueError('color must be one of {}'.format(self.colors))
 
         self._color = new_color
-        self.delegate._reg['color'][self.id] = new_color
+        self.delegate.update_reg('color', self.id, new_color)

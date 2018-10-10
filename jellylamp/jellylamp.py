@@ -19,6 +19,8 @@ class JellyLamp(object):
                 self.motors.append(m)
 
         self.sync_period = 1.0 / sync_freq
+        self.sync_lock = threading.Lock()
+
         sync_t = threading.Thread(target=self._sync)
         sync_t.daemon = True
         sync_t.start()
@@ -35,15 +37,20 @@ class JellyLamp(object):
 
             time.sleep(self.sync_period)
 
+    def update_reg(self, reg, id, val):
+        with self.sync_lock:
+            self._reg[reg][id] = val
+
     def _push_val(self, reg, setter):
-        values = self._reg[reg]
+        with self.sync_lock:
+            values = self._reg[reg]
 
-        for ids, io in self._ios.items():
-            val_for_ids = {
-                id: values[id]
-                for id in ids if id in values
-            }
-            if val_for_ids:
-                getattr(io, setter)(val_for_ids)
+            for ids, io in self._ios.items():
+                val_for_ids = {
+                    id: values[id]
+                    for id in ids if id in values
+                }
+                if val_for_ids:
+                    getattr(io, setter)(val_for_ids)
 
-        values.clear()
+            values.clear()
