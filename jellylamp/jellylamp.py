@@ -3,6 +3,7 @@ import threading
 
 from .auto_open import auto_open_ios
 from .motor import Motor
+from .slm import SoundLevelMeter
 
 
 class JellyLamp(object):
@@ -24,6 +25,8 @@ class JellyLamp(object):
         sync_t = threading.Thread(target=self._sync)
         sync_t.daemon = True
         sync_t.start()
+
+        self.slm = SoundLevelMeter()
 
     def _sync(self):
         sync_reg = (
