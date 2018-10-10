@@ -49,3 +49,12 @@ class SoundLevelMeter(object):
                 self._lazy_sl = smr
 
             return self._lazy_sl
+
+
+if __name__ == '__main__':
+    import time
+
+    slm = SoundLevelMeter()
+    while True:
+        print(slm.sound_level)
+        time.sleep(0.5)
