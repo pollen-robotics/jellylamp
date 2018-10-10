@@ -1,9 +1,10 @@
 class Motor(object):
     colors = 'off red green yellow blue pink cyan white'.split(' ')
 
-    def __init__(self, id, delegate):
+    def __init__(self, id, delegate, offset=0):
         self.id = id
         self.delegate = delegate
+        self.offset = offset
 
         self._goal_pos = None
         self._color = None
@@ -15,7 +16,7 @@ class Motor(object):
     @goal_position.setter
     def goal_position(self, new_pos):
         self._goal_pos = new_pos
-        self.delegate.update_reg('pos', self.id, new_pos)
+        self.delegate.update_reg('pos', self.id, new_pos - self.offset)
 
     @property
     def color(self):

@@ -7,7 +7,7 @@ from .slm import SoundLevelMeter
 
 
 class JellyLamp(object):
-    def __init__(self, ids_groups, sync_freq):
+    def __init__(self, ids_groups, sync_freq, offsets):
         self._ios = auto_open_ios(ids_groups)
 
         self._reg = {'pos': {}, 'color': {}}
@@ -15,7 +15,8 @@ class JellyLamp(object):
         self.motors = []
         for ids, io in self._ios.items():
             for id in ids:
-                m = Motor(id, delegate=self)
+                offset = offsets[id] if id in offsets else 0
+                m = Motor(id, delegate=self, offset=offset)
                 setattr(self, 'm{}'.format(id), m)
                 self.motors.append(m)
 
