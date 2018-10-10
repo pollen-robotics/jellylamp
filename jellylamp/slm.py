@@ -8,9 +8,9 @@ from collections import deque
 class SoundLevelMeter(object):
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
-    RATE = 22050
-    CHUNK = 2048
-    WIN_SIZE = 10
+    RATE = 44100
+    CHUNK = 256
+    WIN_SIZE = 200
 
     def __init__(self):
         self.audio = pyaudio.PyAudio()
