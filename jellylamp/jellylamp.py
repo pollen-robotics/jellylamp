@@ -33,9 +33,11 @@ class JellyLamp(object):
 
         while True:
             for (reg, setter) in sync_reg:
+                start = time.time()
                 self._push_val(reg, setter)
+                dt = time.time() - start
 
-            time.sleep(self.sync_period)
+            time.sleep(max(0, self.sync_period - dt))
 
     def update_reg(self, reg, id, val):
         with self.sync_lock:
