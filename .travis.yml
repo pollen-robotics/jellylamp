@@ -6,6 +6,12 @@ python:
     - "3.5"
     - "3.6"
 
+addons:
+  apt:
+    packages:
+    - portaudio19-dev
+    - python-dev
+
 before_install:
   - pip install --upgrade virtualenv
   - virtualenv --python=python venv
