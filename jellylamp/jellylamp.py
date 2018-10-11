@@ -10,7 +10,7 @@ class JellyLamp(object):
     def __init__(self, ids_groups, sync_freq, offsets):
         self._ios = auto_open_ios(ids_groups)
 
-        self._reg = {'pos': {}, 'color': {}}
+        self._reg = {'pos': {}, 'color': {}, 'speed': {}}
 
         self.motors = []
         for ids, io in self._ios.items():
@@ -32,6 +32,7 @@ class JellyLamp(object):
     def _sync(self):
         sync_reg = (
             ('pos', 'set_goal_position'),
+            ('speed', 'set_moving_speed'),
             ('color', 'set_LED_color'),
         )
 

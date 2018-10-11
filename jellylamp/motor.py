@@ -7,6 +7,7 @@ class Motor(object):
         self.offset = offset
 
         self._goal_pos = None
+        self._moving_speed = None
         self._color = None
 
     @property
@@ -17,6 +18,15 @@ class Motor(object):
     def goal_position(self, new_pos):
         self._goal_pos = new_pos
         self.delegate.update_reg('pos', self.id, new_pos - self.offset)
+
+    @property
+    def moving_speed(self):
+        return self._moving_speed
+
+    @moving_speed.setter
+    def moving_speed(self, new_speed):
+        self._moving_speed = new_speed
+        self.delegate.update_reg('speed', self.id, new_speed)
 
     @property
     def color(self):
