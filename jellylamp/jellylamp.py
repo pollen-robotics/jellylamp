@@ -26,7 +26,7 @@ class JellyLamp(object):
         sync_t.daemon = True
         sync_t.start()
 
-        self.slm = SoundLevelMeter()
+        # self.slm = SoundLevelMeter()
 
     def get_reg(self, getter):
         values = {}
