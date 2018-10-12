@@ -58,7 +58,7 @@ if __name__ == '__main__':
                 lamp.disable_motors()
 
                 for m in lamp.motors:
-                    m.color = 'red'
+                    m.color = 'yellow'
 
                 while max(lamp.get_reg('get_present_temperature').values()) > 39:
                     print('Waiting for everything to cool down...')
