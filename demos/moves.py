@@ -2,8 +2,11 @@ import numpy as np
 import time
 
 
-def sin(center, amp, freq, phase):
-    return center + amp * np.sin(2 * np.pi * freq * (time.time() + phase))
+def sin(center, amp, freq, phase, t=None):
+    phase = (phase / freq) if phase != 0 else 0
+    if t is None:
+        t = time.time()
+    return center + amp * np.sin(2 * np.pi * freq * (t + phase))
 
 
 def goto_rest_position(lamp):
