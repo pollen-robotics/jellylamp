@@ -10,7 +10,7 @@ def goto_rest_position(lamp):
     print('Going to rest position.')
 
     for m in lamp.motors:
-        m.moving_speed = 10
+        m.moving_speed = 50
 
     time.sleep(0.25)
 
