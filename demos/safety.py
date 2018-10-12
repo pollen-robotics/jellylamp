@@ -23,7 +23,7 @@ class SafetyFirst(object):
         self.issues.append(issue_temp or issue_loads)
 
     def check_temp(self, threshold=40):
-        temperatures = self.lamp.get_reg('present_temperature')
+        temperatures = self.lamp.get_reg('get_present_temperature')
         issue = False
 
         for id, temp in temperatures.items():
@@ -34,7 +34,7 @@ class SafetyFirst(object):
         return issue
 
     def check_loads(self, threshold=50):
-        loads = self.lamp.get_reg('present_load')
+        loads = self.lamp.get_reg('get_present_load')
         issue = False
 
         for id, l in loads.items():

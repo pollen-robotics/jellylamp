@@ -1,8 +1,8 @@
 import numpy as np
 import time
 
-# from jellylamp import JellyLamp
-from jellylamp.fake import FakeJellyLamp as JellyLamp
+from jellylamp import JellyLamp
+# from jellylamp.fake import FakeJellyLamp as JellyLamp
 from safety import SafetyFirst
 
 from groups import make_groups
@@ -51,8 +51,8 @@ if __name__ == '__main__':
 
                 while not monitor.is_everything_okay():
                     print('Waiting for everything to cool down...')
-                    print('temperature: {}'.format(lamp.get_reg('present_temperature')))
-                    print('load: {}'.format(lamp.get_reg('present_load')))
+                    print('temperature: {}'.format(lamp.get_reg('get_present_temperature')))
+                    print('load: {}'.format(lamp.get_reg('get_present_load')))
                     time.sleep(10)
 
     except KeyboardInterrupt:

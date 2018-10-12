@@ -5,6 +5,7 @@ from .auto_open import auto_open_ios
 from .motor import Motor
 from .slm import SoundLevelMeter
 
+
 class JellyLamp(object):
     def __init__(self, ids_groups, sync_freq, offsets):
         self._ios = auto_open_ios(ids_groups)
