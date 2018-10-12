@@ -26,7 +26,7 @@ class SafetyFirst(object):
             self.issues.append(issue_temp or issue_loads)
             time.sleep(1 / self.period)
 
-    def check_temp(self, threshold=40):
+    def check_temp(self, threshold=45):
         temperatures = self.lamp.get_reg('get_present_temperature')
         issue = False
 
