@@ -10,12 +10,12 @@ from groups import make_groups
 from moves import (
     goto_rest_position,
     breathing,
-    ondulate_odd_even, ondulate_half
+    ripple
 )
 
 
 def swim(lamp):
-    moves = [ondulate_odd_even, ondulate_half]
+    moves = [ripple]
     move = np.random.choice(moves)
 
     duration = 2 + np.random.rand() * 8
