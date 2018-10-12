@@ -1,7 +1,9 @@
 import numpy as np
+import time
 
 # from jellylamp import JellyLamp
 from jellylamp.fake import FakeJellyLamp as JellyLamp
+from safety import SafetyFirst
 
 from groups import make_groups
 
@@ -30,6 +32,7 @@ if __name__ == '__main__':
         offsets={},
     )
     make_groups(lamp)
+    monitor = SafetyFirst(lamp)
 
     goto_rest_position(lamp)
 
@@ -39,6 +42,16 @@ if __name__ == '__main__':
 
             if np.random.rand() < 0.1:
                 swim(lamp)
+
+            if not monitor.is_everything_okay():
+                goto_rest_position(lamp)
+                lamp.disable_motors()
+
+                while not monitor.is_everything_okay():
+                    print('Waiting for everything to cool down...')
+                    print('temperature: {}'.format(lamp.get_reg('present_temperature')))
+                    print('load: {}'.format(lamp.get_reg('present_load')))
+                    time.sleep(10)
 
     except KeyboardInterrupt:
         print('Stopping...')
