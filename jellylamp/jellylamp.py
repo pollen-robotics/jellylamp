@@ -29,6 +29,14 @@ class JellyLamp(object):
 
         self.slm = SoundLevelMeter()
 
+    def get_reg(self, getter):
+        values = {}
+        for ids, io in self._ios.items():
+            val = getattr(io, getter)(ids)
+            for v, id in zip(val, ids):
+                values[id] = v
+        return values
+
     def _sync(self):
         sync_reg = (
             ('pos', 'set_goal_position'),
