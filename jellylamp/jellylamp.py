@@ -18,6 +18,7 @@ class JellyLamp(object):
                 m = Motor(id, delegate=self, offset=offset)
                 setattr(self, 'm{}'.format(id), m)
                 self.motors.append(m)
+        self.motors = sorted(self.motors, key=lambda m: m.id)
 
         self.sync_period = 1.0 / sync_freq
         self.sync_lock = threading.Lock()
