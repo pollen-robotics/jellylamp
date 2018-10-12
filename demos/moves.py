@@ -60,6 +60,37 @@ def breathing(lamp, duration):
     print('Stop breathing.')
 
 
+def ripple(lamp, duration):
+    for m in lamp.motors:
+        m.moving_speed = 100
+
+    pos = []
+
+    S = 7
+    f = 0.1
+
+    for i in range(-8, 8):
+        t = np.linspace(0, 1, 25 + S * 8)
+        p = np.zeros(len(t))
+
+        shift = S * abs(i)
+        tt = np.linspace(shift, (1 / f) + shift, 25)
+        p[shift:shift + len(tt)] = sin(0, 50, 0.25, 0, tt - shift)
+        pos.append(p)
+
+    low_pos = np.array(pos)
+
+    for tt in range(len(t)):
+        for i in range(15):
+            m = lamp.low_motors[i]
+            m.goal_position = low_pos[i][tt]
+
+        time.sleep(0.05)
+
+    for m in lamp.motors:
+        m.moving_speed = 50
+
+
 def ondulate_odd_even(lamp, duration):
     print('Start ondulating odd/even for {}s.'.format(duration))
     start = time.time()
