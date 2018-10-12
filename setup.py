@@ -14,6 +14,7 @@ setup(
     install_requires=[
         'pyaudio',
         'pypot',
+        'pyluos',
     ],
 
     extra_require={
