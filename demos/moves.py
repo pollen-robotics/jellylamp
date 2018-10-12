@@ -30,15 +30,22 @@ def breathing(lamp, duration):
     print('Start breathing for {}s.'.format(duration))
     start = time.time()
 
-    up_center, up_amp, up_freq = 50, 50, 0.25
-    low_center, low_amp, low_freq = -25, 100, 0.25
+    up_min, up_max = -25, 100
+    up_amp = 0.5 * (up_max - up_min)
+    up_center = up_min + up_amp
+    up_freq = 0.1
+
+    low_min, low_max = 100, -50
+    low_amp = 0.5 * (low_max - low_min)
+    low_center = low_min + low_amp
+    low_freq = 0.1
 
     for m in lamp.motors:
         m.color = 'cyan'
 
     while time.time() - start < duration:
         up_pos = sin(up_center, up_amp, up_freq, 0.0)
-        low_pos = sin(low_center, low_amp, low_freq, 2.0)
+        low_pos = sin(low_center, low_amp, low_freq, 0.0)
 
         for m in lamp.up_motors:
             m.goal_position = up_pos
@@ -48,6 +55,8 @@ def breathing(lamp, duration):
 
         time.sleep(0.01)
 
+    for m in lamp.motors:
+        m.color = 'off'
     print('Stop breathing.')
 
 
