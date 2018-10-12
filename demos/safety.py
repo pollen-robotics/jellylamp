@@ -1,3 +1,4 @@
+import time
 import threading
 
 from collections import deque
@@ -6,6 +7,7 @@ from collections import deque
 class SafetyFirst(object):
     def __init__(self, lamp, freq=1.0):
         self.lamp = lamp
+        self.period = 1 / freq
 
         self._check_t = threading.Thread(target=self._check)
         self._check_t.daemon = True
@@ -17,10 +19,12 @@ class SafetyFirst(object):
         return not any(self.issues)
 
     def _check(self):
-        issue_temp = self.check_temp()
-        issue_loads = self.check_loads()
+        while True:
+            issue_temp = self.check_temp()
+            issue_loads = self.check_loads()
 
-        self.issues.append(issue_temp or issue_loads)
+            self.issues.append(issue_temp or issue_loads)
+            time.sleep(1 / self.period)
 
     def check_temp(self, threshold=40):
         temperatures = self.lamp.get_reg('get_present_temperature')
