@@ -30,6 +30,19 @@ class JellyLamp(object):
 
         # self.slm = SoundLevelMeter()
 
+    def set_limits(self):
+        self.disable_motors()
+        time.sleep(0.5)
+
+        up_limits = (-50, 110)
+        low_limits = (-125, 75)
+
+        for ids, io in self._ios.items():
+            io.set_angle_limit({
+                id: up_limits if id % 2 == 1 else low_limits
+                for id in ids
+            })
+
     def get_reg(self, getter):
         values = {}
         for ids, io in self._ios.items():
