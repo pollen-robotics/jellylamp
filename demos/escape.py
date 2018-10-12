@@ -49,11 +49,17 @@ if __name__ == '__main__':
                 goto_rest_position(lamp)
                 lamp.disable_motors()
 
+                for m in lamp.motors:
+                    m.color = 'red'
+
                 while not monitor.is_everything_okay():
                     print('Waiting for everything to cool down...')
                     print('temperature: {}'.format(lamp.get_reg('get_present_temperature')))
                     print('load: {}'.format(lamp.get_reg('get_present_load')))
                     time.sleep(10)
+
+                for m in lamp.motors:
+                    m.color = 'off'
 
     except KeyboardInterrupt:
         print('Stopping...')
