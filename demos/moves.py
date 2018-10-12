@@ -8,13 +8,19 @@ def sin(center, amp, freq, phase):
 
 def goto_rest_position(lamp):
     print('Going to rest position.')
+
+    for m in lamp.motors:
+        m.moving_speed = 10
+
+    time.sleep(0.25)
+
     for m in lamp.up_motors:
         m.goal_position = 100
 
     for m in lamp.low_motors:
         m.goal_position = -125
 
-    time.sleep(1)
+    time.sleep(3)
 
 
 def breathing(lamp, duration):
