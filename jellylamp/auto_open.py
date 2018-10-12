@@ -1,3 +1,5 @@
+import glob
+
 from pypot.dynamixel import Dxl320IO, get_available_ports
 
 
@@ -11,7 +13,7 @@ def find_port_for_ids(ports, ids):
 
 
 def auto_open_ios(ids_groups):
-    available_ports = get_available_ports()
+    available_ports = glob.glob('/dev/ttyACM*')
 
     ios = {}
     for ids in ids_groups:

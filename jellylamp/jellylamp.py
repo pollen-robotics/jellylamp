@@ -1,5 +1,8 @@
+import glob
 import time
 import threading
+
+import pyluos
 
 from .auto_open import auto_open_ios
 from .motor import Motor
@@ -20,6 +23,11 @@ class JellyLamp(object):
                 setattr(self, 'm{}'.format(id), m)
                 self.motors.append(m)
         self.motors = sorted(self.motors, key=lambda m: m.id)
+
+        port = glob.glob('/dev/ttyUSB*')[0]
+        r = pyluos.Robot(port)
+
+        self.imu = r.Imu_mod
 
         self.sync_period = 1.0 / sync_freq
         self.sync_lock = threading.Lock()

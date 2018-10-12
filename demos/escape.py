@@ -50,6 +50,7 @@ if __name__ == '__main__':
         while True:
             breath(lamp)
 
+            # TODO: something clever with lamp.imu.euler
             if np.random.rand() < 0.1:
                 swim(lamp)
 
