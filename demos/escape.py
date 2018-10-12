@@ -9,13 +9,21 @@ from groups import make_groups
 
 from moves import (
     goto_rest_position,
-    breathing,
+    breathing, other_breathing,
     ripple
 )
 
 
 def swim(lamp):
     moves = [ripple]
+    move = np.random.choice(moves)
+
+    duration = 2 + np.random.rand() * 8
+    move(lamp, duration)
+
+
+def breath(lamp):
+    moves = [breathing, other_breathing]
     move = np.random.choice(moves)
 
     duration = 2 + np.random.rand() * 8
@@ -40,7 +48,7 @@ if __name__ == '__main__':
 
     try:
         while True:
-            breathing(lamp, duration=5 + np.random.rand() * 5)
+            breath(lamp)
 
             if np.random.rand() < 0.1:
                 swim(lamp)

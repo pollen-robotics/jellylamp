@@ -60,6 +60,32 @@ def breathing(lamp, duration):
     print('Stop breathing.')
 
 
+def other_breathing(lamp, duration):
+    for m in lamp.motors:
+        m.color = 'cyan'
+
+    up_center, up_amp, up_freq = 50, 50, 0.25
+    low_center, low_amp, low_freq = -50, 50, 0.25
+
+    start = time.time()
+
+    while time.time() - start < duration:
+        t = time.time() - start
+        up_pos = up_center + up_amp * np.sin(2 * np.pi * up_freq * t)
+        low_pos = low_center + low_amp * np.sin(2 * np.pi * low_freq * (t + 2))
+
+        for i, m in enumerate(lamp.up_motors):
+            m.goal_position = up_pos
+
+        for i, m in enumerate(lamp.low_motors):
+            m.goal_position = -1 * low_pos
+
+        time.sleep(0.01)
+
+    for m in lamp.motors:
+        m.color = 'off'
+
+
 def ripple(lamp, duration):
     for m in lamp.motors:
         m.moving_speed = 100
